@@ -1,0 +1,73 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { profile } from "@/data/profile";
+const comicPanels = [
+  { src: "/images/home-comic/1.png", alt: "Comic panel 1" },
+  { src: "/images/home-comic/2.png", alt: "Comic panel 2" },
+  { src: "/images/home-comic/3.png", alt: "Comic panel 3" },
+  { src: "/images/home-comic/4.png", alt: "Comic panel 4" },
+];
+
+const skillGroups = [
+  { label: "Core", items: ["Vue 3", "TypeScript"] },
+  { label: "Exploring", items: ["React", "Node.js", "Prisma"] },
+  { label: "Workflow", items: ["GitHub Actions", "CICD", "AI-assisted development"] },
+];
+---
+
+<BaseLayout>
+  <section class="home-layout">
+    <aside class="profile-stack" aria-label="Profile summary">
+      <article class="profile-card primary-card">
+        <p class="eyebrow">{profile.role}</p>
+        <h1>{profile.englishName}</h1>
+        <p class="profile-statement muted-statement">
+          在 AI 時代中，持續探索技術與自身價值，努力成為更有判斷力與創造力的工程師。
+        </p>
+        <div class="skill-groups" aria-label="Skill positioning">
+          {
+            skillGroups.map((group) => (
+              <div class="skill-group">
+                <span class="skill-group-label">{group.label}</span>
+                <div class="skill-group-items">
+                  {group.items.map((item) => (
+                    <span>{item}</span>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+        <div class="contact-links" aria-label="Contact information">
+          <a class="contact-item" href={`mailto:${profile.email}`}>
+            <span class="contact-label">Mail</span>
+            <span class="contact-value">{profile.email}</span>
+          </a>
+          <div class="contact-item">
+            <span class="contact-label">Base</span>
+            <span class="contact-value">{profile.location}</span>
+          </div>
+          <a class="contact-item" href={profile.github} target="_blank" rel="noreferrer">
+            <span class="contact-label">GitHub</span>
+            <span class="contact-value">github.com/tsaaiiiii</span>
+          </a>
+        </div>
+        <div class="hero-actions">
+          <a class="button primary" href="/notes">筆記</a>
+          <a class="button" href="/projects">專案</a>
+        </div>
+      </article>
+    </aside>
+
+    <section class="comic-home" aria-label="Home comic panels">
+      {
+        comicPanels.map((panel) => (
+          <article class="comic-panel comic-image-panel">
+            <img src={panel.src} alt={panel.alt} loading="lazy" />
+          </article>
+        ))
+      }
+      <p class="comic-credit">My story · GPT drew it</p>
+    </section>
+  </section>
+</BaseLayout>

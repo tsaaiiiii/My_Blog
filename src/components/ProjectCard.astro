@@ -1,0 +1,63 @@
+---
+import type { Project } from "@/data/projects";
+
+type Props = {
+  project: Project;
+  compact?: boolean;
+};
+
+const { project, compact = false } = Astro.props;
+---
+
+<article class={compact ? "project-card compact" : "project-card"}>
+  <img src={project.image} alt={project.imageAlt} loading="lazy" />
+  <div class="project-body">
+    <div class="project-meta">
+      <span>{project.type}</span>
+      <span>{project.period}</span>
+    </div>
+    <h3>{project.title}</h3>
+    <p>{project.summary}</p>
+    {project.role && <p class="project-role">{project.role}</p>}
+    <ul class="project-highlights">
+      {project.highlights.map((item) => <li>{item}</li>)}
+    </ul>
+    {
+      !compact && project.story && (
+        <dl class="project-story">
+          <div>
+            <dt>我想練什麼</dt>
+            <dd>{project.story.goal}</dd>
+          </div>
+          <div>
+            <dt>我怎麼設計</dt>
+            <dd>{project.story.design}</dd>
+          </div>
+          <div>
+            <dt>我遇到什麼問題</dt>
+            <dd>{project.story.challenge}</dd>
+          </div>
+          <div>
+            <dt>我學到什麼</dt>
+            <dd>{project.story.learned}</dd>
+          </div>
+        </dl>
+      )
+    }
+    <div class="tag-list" aria-label={`${project.title} tags`}>
+      {project.areas.map((area) => <span>{area}</span>)}
+      {project.tags.map((tag) => <span>{tag}</span>)}
+    </div>
+    {
+      project.links && project.links.length > 0 && (
+        <div class="link-row">
+          {project.links.map((link) => (
+            <a href={link.href} target="_blank" rel="noreferrer">
+              {link.label}
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</article>

@@ -1,0 +1,63 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { noteCategories } from "@/data/profile";
+
+export function getStaticPaths() {
+  return noteCategories.map((category) => ({
+    params: { category: category.slug },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props;
+const notes = (await getCollection("notes"))
+  .filter((note) => note.data.category === category.slug && !note.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title={`${category.title} 筆記 | Windy Tsai`} description={category.description}>
+  <section class="page-heading">
+    <a class="back-link" href="/notes">回筆記分類</a>
+    <p class="section-kicker">Notes / {category.slug}</p>
+    <h1>{category.title}</h1>
+    <p>{category.description}</p>
+    <div class="tag-list">
+      {category.tags.map((tag) => <span>{tag}</span>)}
+    </div>
+  </section>
+
+  <section class="note-filters" aria-label="Note category filters">
+    <a href="/notes">全部</a>
+    {
+      noteCategories.map((item) => (
+        <a class={item.slug === category.slug ? "active" : ""} href={`/notes/${item.slug}`}>
+          {item.title}
+        </a>
+      ))
+    }
+  </section>
+
+  {
+    notes.length > 0 ? (
+      <section class="note-list">
+        {notes.map((note) => (
+          <article class="note-item">
+            <time datetime={note.data.date.toISOString()}>{note.data.date.toLocaleDateString("zh-TW")}</time>
+            <h2>{note.data.title}</h2>
+            {note.data.description && <p>{note.data.description}</p>}
+            <div class="tag-list">
+              {note.data.tags.map((tag) => (
+                <span>{tag}</span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </section>
+    ) : (
+      <section class="empty-state">
+        <h2>還在躺，請等等</h2>
+      </section>
+    )
+  }
+</BaseLayout>

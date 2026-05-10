@@ -1,0 +1,55 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { noteCategories } from "@/data/profile";
+import { getCollection } from "astro:content";
+
+const notes = (await getCollection("notes"))
+  .filter((note) => !note.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="筆記 | Windy Tsai" description="以主題為核心整理 Frontend、TypeScript、Backend、Workflow 與 Interview 筆記。">
+  <section class="page-heading">
+    <p class="section-kicker">Notes</p>
+    <h1>筆記</h1>
+  </section>
+
+  <section class="note-filters" aria-label="Note category filters">
+    <a class="active" href="/notes">全部</a>
+    {
+      noteCategories.map((category) => (
+        <a href={`/notes/${category.slug}`}>
+          {category.title}
+        </a>
+      ))
+    }
+  </section>
+
+  {
+    notes.length > 0 ? (
+      <section class="note-list">
+        {notes.map((note) => (
+          <article class="note-item">
+            <div class="note-item-top">
+              <time datetime={note.data.date.toISOString()}>
+                {note.data.date.toLocaleDateString("zh-TW")}
+              </time>
+              <a href={`/notes/${note.data.category}`}>{note.data.category}</a>
+            </div>
+            <h2>{note.data.title}</h2>
+            {note.data.description && <p>{note.data.description}</p>}
+            <div class="tag-list">
+              {note.data.tags.map((tag) => (
+                <span>{tag}</span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </section>
+    ) : (
+      <section class="empty-state">
+        <h2>還在躺，請等等</h2>
+      </section>
+    )
+  }
+</BaseLayout>

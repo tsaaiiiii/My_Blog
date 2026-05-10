@@ -1,0 +1,16 @@
+---
+import ProjectCard from "@/components/ProjectCard.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { projects } from "@/data/projects";
+---
+
+<BaseLayout title="專案 | Windy Tsai" description="以案例研究方式整理個人專案、公司專案與協作專案。">
+  <section class="page-heading">
+    <p class="section-kicker">Projects</p>
+    <h1>專案</h1>
+  </section>
+
+  <section class="project-list">
+    {projects.map((project) => <ProjectCard project={project} />)}
+  </section>
+</BaseLayout>

@@ -1,0 +1,50 @@
+---
+import "../styles/global.css";
+import { profile } from "@/data/profile";
+
+type Props = {
+  title?: string;
+  description?: string;
+};
+
+const {
+  title = `${profile.englishName} | ${profile.role}`,
+  description = `${profile.englishName} | ${profile.role}`,
+} = Astro.props;
+
+const navItems = [
+  { href: "/", label: "首頁" },
+  { href: "/notes", label: "筆記" },
+  { href: "/projects", label: "專案" },
+];
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="google" content="notranslate" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+  </head>
+<body class={Astro.url.pathname === "/" ? "home-page" : ""}>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Go to home">
+        <span>{profile.englishName}</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        {
+          navItems.map((item) => (
+            <a href={item.href} class={Astro.url.pathname === item.href ? "active" : ""}>
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
