@@ -16,7 +16,6 @@ export const profile = {
     "TypeScript",
     "React",
     "Nuxt 3",
-    "Astro",
     "TanStack Query",
     "Node.js",
     "Prisma",
@@ -28,8 +27,8 @@ export const noteCategories = [
   {
     slug: "frontend",
     title: "Frontend",
-    description: "Vue、React、Astro、CSS、狀態管理與互動流程。",
-    tags: ["Vue 3", "React", "Astro", "CSS", "State"],
+    description: "Vue、React、CSS、狀態管理與互動流程。",
+    tags: ["Vue 3", "React", "CSS", "State"],
   },
   {
     slug: "typescript",

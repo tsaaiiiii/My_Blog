@@ -8,10 +8,57 @@ type Props = {
 };
 
 const { project, compact = false } = Astro.props;
+const slides =
+  project.images ??
+  (project.image ? [{ src: project.image, alt: project.imageAlt ?? project.title }] : []);
+const hasSwiper = Boolean(project.images && project.images.length > 1);
 ---
 
 <article class={compact ? "project-card compact" : "project-card"}>
-  <img src={withBase(project.image)} alt={project.imageAlt} loading="lazy" />
+  <div class={hasSwiper ? "project-swiper" : "project-media"} aria-label={`${project.title} images`}>
+    <div class="project-swiper-track">
+      {
+        slides.map((image) => (
+          <img src={withBase(image.src)} alt={image.alt} loading="lazy" />
+        ))
+      }
+    </div>
+    {
+      hasSwiper && (
+        <>
+          <button class="project-swiper-button previous" type="button" aria-label="Previous image" data-direction="previous">
+            ‹
+          </button>
+          <button class="project-swiper-button next" type="button" aria-label="Next image" data-direction="next">
+            ›
+          </button>
+        </>
+      )
+    }
+    {
+      hasSwiper && (
+        <div class="project-swiper-dots" aria-hidden="true">
+          {slides.map(() => <span />)}
+        </div>
+      )
+    }
+  </div>
+  {
+    hasSwiper && (
+      <dialog class="project-image-modal" aria-label={`${project.title} image preview`}>
+        <button class="project-modal-close" type="button" aria-label="Close preview">
+          ×
+        </button>
+        <button class="project-modal-button previous" type="button" aria-label="Previous preview image" data-direction="previous">
+          ‹
+        </button>
+        <img src={withBase(slides[0].src)} alt={slides[0].alt} loading="lazy" />
+        <button class="project-modal-button next" type="button" aria-label="Next preview image" data-direction="next">
+          ›
+        </button>
+      </dialog>
+    )
+  }
   <div class="project-body">
     <div class="project-meta">
       <span>{project.type}</span>
@@ -62,3 +109,73 @@ const { project, compact = false } = Astro.props;
     }
   </div>
 </article>
+
+<script>
+  document.querySelectorAll(".project-swiper").forEach((swiper) => {
+    const track = swiper.querySelector(".project-swiper-track");
+    const buttons = swiper.querySelectorAll(".project-swiper-button");
+    const modal = swiper.parentElement?.querySelector(".project-image-modal");
+    const modalImage = modal?.querySelector("img");
+    const closeButton = modal?.querySelector(".project-modal-close");
+    const modalButtons = modal?.querySelectorAll(".project-modal-button") ?? [];
+    const images = Array.from(swiper.querySelectorAll(".project-swiper-track img"));
+    let activeIndex = 0;
+
+    if (!(track instanceof HTMLElement)) return;
+
+    const updateModalImage = (index: number) => {
+      if (!(modalImage instanceof HTMLImageElement)) return;
+
+      activeIndex = (index + images.length) % images.length;
+      const image = images[activeIndex];
+
+      if (!(image instanceof HTMLImageElement)) return;
+
+      modalImage.src = image.src;
+      modalImage.alt = image.alt;
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const direction = button.getAttribute("data-direction") === "previous" ? -1 : 1;
+        track.scrollBy({
+          left: direction * track.clientWidth,
+          behavior: "smooth",
+        });
+      });
+    });
+
+    swiper.addEventListener("click", (event) => {
+      if ((event.target as Element).closest(".project-swiper-button")) return;
+      if (!(modal instanceof HTMLDialogElement) || !(modalImage instanceof HTMLImageElement)) return;
+
+      const clickedImage = (event.target as Element).closest("img");
+      const currentIndex = Math.round(track.scrollLeft / track.clientWidth);
+      const clickedIndex = clickedImage instanceof HTMLImageElement ? images.indexOf(clickedImage) : currentIndex;
+
+      updateModalImage(clickedIndex >= 0 ? clickedIndex : currentIndex);
+      modal.showModal();
+    });
+
+    modalButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const direction = button.getAttribute("data-direction") === "previous" ? -1 : 1;
+        updateModalImage(activeIndex + direction);
+      });
+    });
+
+    closeButton?.addEventListener("click", () => {
+      if (modal instanceof HTMLDialogElement) {
+        modal.close();
+      }
+    });
+
+    modal?.addEventListener("click", (event) => {
+      if (event.target === modal && modal instanceof HTMLDialogElement) {
+        modal.close();
+      }
+    });
+  });
+</script>

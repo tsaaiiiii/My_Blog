@@ -29,6 +29,7 @@ const currentPath = withoutBase(Astro.url.pathname);
     <meta name="description" content={description} />
     <meta name="google" content="notranslate" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
     <title>{title}</title>
   </head>
 <body class={currentPath === "/" ? "home-page" : ""}>
@@ -49,5 +50,11 @@ const currentPath = withoutBase(Astro.url.pathname);
     <main>
       <slot />
     </main>
+    <footer class="site-footer">
+      <span>© 2026 Windy Tsai</span>
+      <span class="footer-meta">
+        <span>Personal notes and projects.</span>
+      </span>
+    </footer>
   </body>
 </html>

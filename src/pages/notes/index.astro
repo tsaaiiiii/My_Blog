@@ -7,6 +7,7 @@ import { withBase } from "@/utils/path";
 const notes = (await getCollection("notes"))
   .filter((note) => !note.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const allTags = Array.from(new Set(notes.flatMap((note) => note.data.tags))).sort();
 ---
 
 <BaseLayout title="筆記 | Windy Tsai" description="以主題為核心整理 Frontend、TypeScript、Backend、Workflow 與 Interview 筆記。">
@@ -27,10 +28,23 @@ const notes = (await getCollection("notes"))
   </section>
 
   {
+    allTags.length > 0 && (
+      <section class="tag-list note-tag-filter" aria-label="Note tag filters">
+        <a href={withBase("/notes")} data-note-all>All</a>
+        {allTags.map((tag) => (
+          <a href={`${withBase("/notes")}?tag=${encodeURIComponent(tag)}`} data-note-tag={tag}>
+            {tag}
+          </a>
+        ))}
+      </section>
+    )
+  }
+
+  {
     notes.length > 0 ? (
       <section class="note-list">
         {notes.map((note) => (
-          <article class="note-item">
+          <article class="note-item" data-note-tags={JSON.stringify(note.data.tags)}>
             <div class="note-item-top">
               <time datetime={note.data.date.toISOString()}>
                 {note.data.date.toLocaleDateString("zh-TW")}
@@ -41,11 +55,16 @@ const notes = (await getCollection("notes"))
             {note.data.description && <p>{note.data.description}</p>}
             <div class="tag-list">
               {note.data.tags.map((tag) => (
-                <span>{tag}</span>
+                <a href={`${withBase("/notes")}?tag=${encodeURIComponent(tag)}`} data-note-tag={tag}>
+                  {tag}
+                </a>
               ))}
             </div>
           </article>
         ))}
+      </section>
+      <section class="empty-state note-filter-empty" hidden>
+        <h2>還在躺，請等等</h2>
       </section>
     ) : (
       <section class="empty-state">
@@ -54,3 +73,74 @@ const notes = (await getCollection("notes"))
     )
   }
 </BaseLayout>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const selectedTags = new Set(params.getAll("tag"));
+  const allButtons = document.querySelectorAll("[data-note-all]");
+  const tagLinks = document.querySelectorAll("[data-note-tag]");
+  const noteItems = document.querySelectorAll("[data-note-tags]");
+  const filterEmpty = document.querySelector(".note-filter-empty");
+
+  const updateTagLinks = () => {
+    allButtons.forEach((button) => {
+      button.classList.toggle("active", selectedTags.size === 0);
+    });
+
+    tagLinks.forEach((link) => {
+      const tag = link.getAttribute("data-note-tag");
+      link.classList.toggle("active", Boolean(tag && selectedTags.has(tag)));
+    });
+  };
+
+  const updateNotes = () => {
+    let visibleCount = 0;
+
+    noteItems.forEach((item) => {
+      const tags = JSON.parse(item.getAttribute("data-note-tags") ?? "[]");
+      const shouldShow = [...selectedTags].every((tag) => tags.includes(tag));
+      item.toggleAttribute("hidden", !shouldShow);
+      if (shouldShow) visibleCount += 1;
+    });
+
+    filterEmpty?.toggleAttribute("hidden", visibleCount > 0);
+  };
+
+  const updateUrl = () => {
+    const nextParams = new URLSearchParams();
+    selectedTags.forEach((selectedTag) => nextParams.append("tag", selectedTag));
+    const query = nextParams.toString();
+    window.history.replaceState({}, "", query ? `?${query}` : window.location.pathname);
+  };
+
+  allButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      selectedTags.clear();
+      updateUrl();
+      updateTagLinks();
+      updateNotes();
+    });
+  });
+
+  tagLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      const tag = link.getAttribute("data-note-tag");
+      if (!tag) return;
+
+      if (selectedTags.has(tag)) {
+        selectedTags.delete(tag);
+      } else {
+        selectedTags.add(tag);
+      }
+
+      updateUrl();
+      updateTagLinks();
+      updateNotes();
+    });
+  });
+
+  updateTagLinks();
+  updateNotes();
+</script>

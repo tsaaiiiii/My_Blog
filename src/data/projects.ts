@@ -8,8 +8,9 @@ export type Project = {
   title: string;
   period: string;
   type: "個人專案" | "公司專案" | "協作專案";
-  image: string;
-  imageAlt: string;
+  image?: string;
+  imageAlt?: string;
+  images?: { src: string; alt: string }[];
   summary: string;
   role?: string;
   highlights: string[];
@@ -36,8 +37,12 @@ export const projects: Project[] = [
     title: "Go Funny｜旅行分帳工具",
     period: "2026/4-仍在進行",
     type: "個人專案",
-    image: "/images/projects/go-funny.png",
-    imageAlt: "Go Funny travel expense app interface",
+    images: [
+      { src: "/images/projects/go-funny/1.png", alt: "Go Funny travel overview interface" },
+      { src: "/images/projects/go-funny/2.png", alt: "Go Funny expense list interface" },
+      { src: "/images/projects/go-funny/3.png", alt: "Go Funny split bill interface" },
+      { src: "/images/projects/go-funny/4.png", alt: "Go Funny settlement interface" },
+    ],
     summary:
       "以旅遊分帳為情境，建立前後端分工清楚的 MVP，涵蓋旅行、成員、費用、公費與結算流程。",
     highlights: [
@@ -66,8 +71,13 @@ export const projects: Project[] = [
     title: "FieldToTable｜菜單管理平台",
     period: "2026/2-仍在進行",
     type: "協作專案",
-    image: "/images/projects/field-to-table.png",
-    imageAlt: "Field To Table project logo",
+    images: [
+      { src: "/images/projects/field-to-table/1.png", alt: "FieldToTable menu management overview" },
+      { src: "/images/projects/field-to-table/2.png", alt: "FieldToTable menu item editing interface" },
+      { src: "/images/projects/field-to-table/3.png", alt: "FieldToTable category management interface" },
+      { src: "/images/projects/field-to-table/5.png", alt: "FieldToTable ordering preview interface" },
+      { src: "/images/projects/field-to-table/4.png", alt: "FieldToTable restaurant settings interface" },
+    ],
     summary:
       "以菜單管理為核心的 monorepo 專案，負責前端資料流、路由、API 協作與型別驗證。",
     highlights: [
