@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { noteCategories } from "@/data/profile";
 import { getCollection } from "astro:content";
+import { withBase } from "@/utils/path";
 
 const notes = (await getCollection("notes"))
   .filter((note) => !note.data.draft)
@@ -15,10 +16,10 @@ const notes = (await getCollection("notes"))
   </section>
 
   <section class="note-filters" aria-label="Note category filters">
-    <a class="active" href="/notes">全部</a>
+    <a class="active" href={withBase("/notes")}>全部</a>
     {
       noteCategories.map((category) => (
-        <a href={`/notes/${category.slug}`}>
+        <a href={withBase(`/notes/${category.slug}`)}>
           {category.title}
         </a>
       ))
@@ -34,7 +35,7 @@ const notes = (await getCollection("notes"))
               <time datetime={note.data.date.toISOString()}>
                 {note.data.date.toLocaleDateString("zh-TW")}
               </time>
-              <a href={`/notes/${note.data.category}`}>{note.data.category}</a>
+              <a href={withBase(`/notes/${note.data.category}`)}>{note.data.category}</a>
             </div>
             <h2>{note.data.title}</h2>
             {note.data.description && <p>{note.data.description}</p>}

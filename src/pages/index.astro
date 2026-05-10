@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { profile } from "@/data/profile";
+import { withBase } from "@/utils/path";
 const comicPanels = [
   { src: "/images/home-comic/1.png", alt: "Comic panel 1" },
   { src: "/images/home-comic/2.png", alt: "Comic panel 2" },
@@ -53,8 +54,8 @@ const skillGroups = [
           </a>
         </div>
         <div class="hero-actions">
-          <a class="button primary" href="/notes">筆記</a>
-          <a class="button" href="/projects">專案</a>
+          <a class="button primary" href={withBase("/notes")}>筆記</a>
+          <a class="button" href={withBase("/projects")}>專案</a>
         </div>
       </article>
     </aside>
@@ -63,7 +64,7 @@ const skillGroups = [
       {
         comicPanels.map((panel) => (
           <article class="comic-panel comic-image-panel">
-            <img src={panel.src} alt={panel.alt} loading="lazy" />
+            <img src={withBase(panel.src)} alt={panel.alt} loading="lazy" />
           </article>
         ))
       }

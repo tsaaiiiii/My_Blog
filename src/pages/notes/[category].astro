@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { noteCategories } from "@/data/profile";
+import { withBase } from "@/utils/path";
 
 export function getStaticPaths() {
   return noteCategories.map((category) => ({
@@ -18,7 +19,7 @@ const notes = (await getCollection("notes"))
 
 <BaseLayout title={`${category.title} 筆記 | Windy Tsai`} description={category.description}>
   <section class="page-heading">
-    <a class="back-link" href="/notes">回筆記分類</a>
+    <a class="back-link" href={withBase("/notes")}>回筆記分類</a>
     <p class="section-kicker">Notes / {category.slug}</p>
     <h1>{category.title}</h1>
     <p>{category.description}</p>
@@ -28,10 +29,10 @@ const notes = (await getCollection("notes"))
   </section>
 
   <section class="note-filters" aria-label="Note category filters">
-    <a href="/notes">全部</a>
+    <a href={withBase("/notes")}>全部</a>
     {
       noteCategories.map((item) => (
-        <a class={item.slug === category.slug ? "active" : ""} href={`/notes/${item.slug}`}>
+        <a class={item.slug === category.slug ? "active" : ""} href={withBase(`/notes/${item.slug}`)}>
           {item.title}
         </a>
       ))

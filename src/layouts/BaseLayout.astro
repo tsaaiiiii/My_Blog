@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { profile } from "@/data/profile";
+import { withBase, withoutBase } from "@/utils/path";
 
 type Props = {
   title?: string;
@@ -17,6 +18,8 @@ const navItems = [
   { href: "/notes", label: "筆記" },
   { href: "/projects", label: "專案" },
 ];
+
+const currentPath = withoutBase(Astro.url.pathname);
 ---
 
 <!doctype html>
@@ -28,15 +31,15 @@ const navItems = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
   </head>
-<body class={Astro.url.pathname === "/" ? "home-page" : ""}>
+<body class={currentPath === "/" ? "home-page" : ""}>
     <header class="site-header">
-      <a class="brand" href="/" aria-label="Go to home">
+      <a class="brand" href={withBase("/")} aria-label="Go to home">
         <span>{profile.englishName}</span>
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
         {
           navItems.map((item) => (
-            <a href={item.href} class={Astro.url.pathname === item.href ? "active" : ""}>
+            <a href={withBase(item.href)} class={currentPath === item.href ? "active" : ""}>
               {item.label}
             </a>
           ))

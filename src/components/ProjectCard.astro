@@ -1,5 +1,6 @@
 ---
 import type { Project } from "@/data/projects";
+import { withBase } from "@/utils/path";
 
 type Props = {
   project: Project;
@@ -10,7 +11,7 @@ const { project, compact = false } = Astro.props;
 ---
 
 <article class={compact ? "project-card compact" : "project-card"}>
-  <img src={project.image} alt={project.imageAlt} loading="lazy" />
+  <img src={withBase(project.image)} alt={project.imageAlt} loading="lazy" />
   <div class="project-body">
     <div class="project-meta">
       <span>{project.type}</span>
