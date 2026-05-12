@@ -38,10 +38,10 @@ export const projects: Project[] = [
     period: "2026/4-仍在進行",
     type: "個人專案",
     images: [
-      { src: "/images/projects/go-funny/1.png", alt: "Go Funny travel overview interface" },
-      { src: "/images/projects/go-funny/2.png", alt: "Go Funny expense list interface" },
-      { src: "/images/projects/go-funny/3.png", alt: "Go Funny split bill interface" },
-      { src: "/images/projects/go-funny/4.png", alt: "Go Funny settlement interface" },
+      { src: "/images/projects/go-funny/1.webp", alt: "Go Funny travel overview interface" },
+      { src: "/images/projects/go-funny/2.webp", alt: "Go Funny expense list interface" },
+      { src: "/images/projects/go-funny/3.webp", alt: "Go Funny split bill interface" },
+      { src: "/images/projects/go-funny/4.webp", alt: "Go Funny settlement interface" },
     ],
     summary:
       "以旅遊分帳為情境，建立前後端分工清楚的 MVP，涵蓋旅行、成員、費用、公費與結算流程。",
@@ -72,11 +72,11 @@ export const projects: Project[] = [
     period: "2026/2-仍在進行",
     type: "協作專案",
     images: [
-      { src: "/images/projects/field-to-table/1.png", alt: "FieldToTable menu management overview" },
-      { src: "/images/projects/field-to-table/2.png", alt: "FieldToTable menu item editing interface" },
-      { src: "/images/projects/field-to-table/3.png", alt: "FieldToTable category management interface" },
-      { src: "/images/projects/field-to-table/5.png", alt: "FieldToTable ordering preview interface" },
-      { src: "/images/projects/field-to-table/4.png", alt: "FieldToTable restaurant settings interface" },
+      { src: "/images/projects/field-to-table/1.webp", alt: "FieldToTable menu management overview" },
+      { src: "/images/projects/field-to-table/2.webp", alt: "FieldToTable menu item editing interface" },
+      { src: "/images/projects/field-to-table/3.webp", alt: "FieldToTable category management interface" },
+      { src: "/images/projects/field-to-table/5.webp", alt: "FieldToTable ordering preview interface" },
+      { src: "/images/projects/field-to-table/4.webp", alt: "FieldToTable restaurant settings interface" },
     ],
     summary:
       "以菜單管理為核心的 monorepo 專案，負責前端資料流、路由、API 協作與型別驗證。",
@@ -106,7 +106,7 @@ export const projects: Project[] = [
     title: "AI Agent 產品｜WebChat 與後台功能",
     period: "2025/3-2025/8",
     type: "公司專案",
-    image: "/images/projects/ai-agent.png",
+    image: "/images/projects/ai-agent.webp",
     imageAlt: "AI agent product interface",
     summary:
       "負責 WebChat AI 聊天視窗模組與後台 UI 功能，並推動 JS 專案導入 TypeScript。",
@@ -123,7 +123,7 @@ export const projects: Project[] = [
     title: "叫號機系統｜重新開發與部署",
     period: "2024/9-2024/10",
     type: "公司專案",
-    image: "/images/projects/queue-system.png",
+    image: "/images/projects/queue-system.webp",
     imageAlt: "Queue system interface",
     summary:
       "獨立重新開發內部叫號機系統，負責需求理解、前端實作、monorepo 整合與線上部署。",
@@ -140,7 +140,7 @@ export const projects: Project[] = [
     title: "後台與線上點餐功能開發與維護",
     period: "2024/2-2025/2",
     type: "公司專案",
-    image: "/images/projects/gudianbao-admin.png",
+    image: "/images/projects/gudianbao-admin.webp",
     imageAlt: "Dashboard and online ordering interface",
     summary:
       "參與後台與線上點餐系統開發，涵蓋訂單、分析報表、桌位設定、打卡紀錄與購物車等模組。",
