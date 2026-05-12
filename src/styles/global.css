@@ -11,11 +11,12 @@
   --muted: #8f8f92;
   --hairline: #e5e5e5;
   --hairline-soft: #eeeeee;
-  --blue: #2563eb;
-  --blue-deep: #1d4ed8;
-  --tag-blue: #2563eb;
-  --tag-blue-soft: rgba(37, 99, 235, 0.1);
-  --hero-from: #eff6ff;
+  --blue: #0391e9;
+  --blue-deep: #0391e9;
+  --blue-rgb: 3, 145, 233;
+  --tag-blue: #0391e9;
+  --tag-blue-soft: rgba(var(--blue-rgb), 0.1);
+  --hero-from: rgba(var(--blue-rgb), 0.08);
   --hero-to: #f8fafc;
   --max: 1200px;
   --radius-card: 12px;
@@ -31,13 +32,24 @@ html {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   min-width: 320px;
+  min-height: 100vh;
   background: var(--canvas);
   color: var(--ink);
   font-family:
-    "IBM Plex Sans TC", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    "IBM Plex Sans TC",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans TC",
+    "PingFang TC",
+    "Microsoft JhengHei",
+    sans-serif;
   line-height: 1.55;
 }
 
@@ -54,6 +66,7 @@ a {
 main {
   width: min(var(--max), calc(100% - 48px));
   margin: 0 auto 96px;
+  flex: 1 0 auto;
 }
 
 body.home-page main {
@@ -61,6 +74,7 @@ body.home-page main {
 }
 
 .site-footer {
+  flex-shrink: 0;
   width: min(var(--max), calc(100% - 48px));
   margin: 0 auto;
   padding: 18px 0 24px;
@@ -70,7 +84,8 @@ body.home-page main {
   gap: 12px;
   border-top: 1px solid var(--hairline);
   color: var(--muted);
-  font-family: "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
+  font-family:
+    "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
   font-size: 11px;
 }
 
@@ -94,7 +109,9 @@ body.home-page main {
   display: inline-flex;
   align-items: baseline;
   gap: 10px;
-  font-family: "Bricolage Grotesque", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
+  font-family:
+    "Bricolage Grotesque", "IBM Plex Sans TC", ui-sans-serif, system-ui,
+    sans-serif;
   font-weight: 650;
 }
 
@@ -126,7 +143,8 @@ body.home-page main {
   text-align: center;
   font-size: 14px;
   font-weight: 550;
-  font-family: "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
+  font-family:
+    "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
 }
 
 .site-nav a.active {
@@ -157,7 +175,7 @@ body.home-page main {
   border: 2px solid var(--ink);
   border-radius: 14px;
   background: var(--canvas);
-  box-shadow: 6px 6px 0 rgba(37, 99, 235, 0.12);
+  box-shadow: 6px 6px 0 rgba(var(--blue-rgb), 0.12);
 }
 
 .primary-card {
@@ -167,20 +185,36 @@ body.home-page main {
   padding: 24px;
   overflow: hidden;
   background:
-    linear-gradient(135deg, rgba(239, 246, 255, 0.96), rgba(248, 250, 252, 0.94)),
+    linear-gradient(
+      135deg,
+      rgba(var(--blue-rgb), 0.08),
+      rgba(248, 250, 252, 0.94)
+    ),
     var(--surface);
   background-image:
-    linear-gradient(135deg, rgba(239, 246, 255, 0.96), rgba(248, 250, 252, 0.94)),
-    linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
-  background-size: auto, 18px 18px, 18px 18px;
-  background-position: 0 0, 0 0, 0 0;
+    linear-gradient(
+      135deg,
+      rgba(var(--blue-rgb), 0.08),
+      rgba(248, 250, 252, 0.94)
+    ),
+    linear-gradient(rgba(var(--blue-rgb), 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--blue-rgb), 0.05) 1px, transparent 1px);
+  background-size:
+    auto,
+    18px 18px,
+    18px 18px;
+  background-position:
+    0 0,
+    0 0,
+    0 0;
 }
 
 .primary-card h1 {
   margin-bottom: 0;
   font-size: clamp(28px, 3vw, 40px);
-  font-family: "Bricolage Grotesque", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
+  font-family:
+    "Bricolage Grotesque", "IBM Plex Sans TC", ui-sans-serif, system-ui,
+    sans-serif;
 }
 
 .primary-card p {
@@ -225,7 +259,8 @@ body.home-page main {
   color: var(--ink);
   font-size: 12px;
   font-weight: 700;
-  font-family: "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
+  font-family:
+    "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
 }
 
 .skill-group-items {
@@ -237,9 +272,10 @@ body.home-page main {
 .skill-group-items span {
   padding: 3px 7px;
   border-radius: 999px;
-  background: rgba(37, 99, 235, 0.08);
+  background: rgba(var(--blue-rgb), 0.08);
   color: var(--blue-deep);
-  font-family: "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
+  font-family:
+    "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
   font-size: 12px;
   font-weight: 650;
 }
@@ -259,7 +295,8 @@ body.home-page main {
   justify-self: end;
   margin: -2px 2px 0 0;
   color: var(--muted);
-  font-family: "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
+  font-family:
+    "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
   font-size: 10px;
   line-height: 1;
 }
@@ -270,7 +307,7 @@ body.home-page main {
   border: 2px solid var(--ink);
   border-radius: 12px;
   background: var(--canvas);
-  box-shadow: 5px 5px 0 rgba(37, 99, 235, 0.12);
+  box-shadow: 5px 5px 0 rgba(var(--blue-rgb), 0.12);
   aspect-ratio: 1 / 1;
 }
 
@@ -280,7 +317,11 @@ body.home-page main {
   gap: 12px;
   padding: 24px;
   background:
-    linear-gradient(135deg, rgba(239, 246, 255, 0.96), rgba(248, 250, 252, 0.94)),
+    linear-gradient(
+      135deg,
+      rgba(var(--blue-rgb), 0.08),
+      rgba(248, 250, 252, 0.94)
+    ),
     var(--surface);
 }
 
@@ -372,7 +413,8 @@ a.contact-item:hover .contact-value {
 
 .contact-label {
   color: var(--muted);
-  font-family: "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
+  font-family:
+    "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
@@ -381,7 +423,8 @@ a.contact-item:hover .contact-value {
 .contact-value {
   min-width: 0;
   color: var(--charcoal);
-  font-family: "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
+  font-family:
+    "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
   font-size: 13px;
   font-weight: 650;
   overflow-wrap: anywhere;
@@ -395,7 +438,8 @@ a.contact-item:hover .contact-value {
   font-weight: 700;
   letter-spacing: 0;
   text-transform: uppercase;
-  font-family: "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
+  font-family:
+    "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
 }
 
 h1,
@@ -411,7 +455,8 @@ h3 {
   line-height: 1.12;
   font-weight: 650;
   letter-spacing: 0;
-  font-family: "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
+  font-family:
+    "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
 }
 
 .intro-panel h1 {
@@ -438,9 +483,11 @@ h3 {
   border-radius: 18px 18px 18px 6px;
   background: #fff;
   color: var(--ink);
-  box-shadow: 6px 6px 0 rgba(37, 99, 235, 0.18);
+  box-shadow: 6px 6px 0 rgba(var(--blue-rgb), 0.18);
   transform-origin: left bottom;
-  animation: bubble-pop 520ms cubic-bezier(0.2, 1.35, 0.32, 1) both, bubble-float 4s ease-in-out 650ms infinite;
+  animation:
+    bubble-pop 520ms cubic-bezier(0.2, 1.35, 0.32, 1) both,
+    bubble-float 4s ease-in-out 650ms infinite;
 }
 
 .speech-bubble::before {
@@ -487,7 +534,8 @@ h3 {
   color: var(--ink);
   font-size: 14px;
   font-weight: 560;
-  font-family: "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
+  font-family:
+    "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
 }
 
 .button.primary,
@@ -504,7 +552,7 @@ h3 {
 
 .page-heading {
   max-width: 780px;
-  padding: 48px 0 30px;
+  padding: 36px 0 30px;
 }
 
 .page-heading h1 {
@@ -595,7 +643,7 @@ h3 {
 .tag-list span,
 .tag-list a {
   padding: 4px 8px;
-  border: 1px solid rgba(55, 114, 207, 0.16);
+  border: 1px solid rgba(var(--blue-rgb), 0.16);
   border-radius: 6px;
   background: var(--tag-blue-soft);
   color: var(--tag-blue);
@@ -610,10 +658,6 @@ h3 {
   color: #fff;
 }
 
-.note-tag-filter {
-  margin: -14px 0 28px;
-}
-
 .project-list {
   display: grid;
   gap: 28px;
@@ -625,12 +669,15 @@ h3 {
   grid-template-columns: minmax(360px, 46%) minmax(0, 1fr);
   gap: 32px;
   align-items: start;
-  padding: 24px 0 32px;
+  padding: 0px 0 24px;
   border-bottom: 1px solid var(--hairline);
   background: var(--canvas);
 }
 
-.project-media,
+.project-card:last-child {
+  border-bottom: 0;
+}
+
 .project-swiper {
   width: 100%;
   height: clamp(500px, 58vw, 660px);
@@ -641,12 +688,36 @@ h3 {
   overflow: hidden;
 }
 
+.project-media {
+  width: 100%;
+  padding: 22px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--surface-soft);
+  overflow: hidden;
+}
+
+.project-card.company-project .project-media {
+  display: grid;
+  place-items: center;
+  min-height: clamp(260px, 30vw, 380px);
+  padding: 28px;
+  background: #fff;
+}
+
 .project-media img,
 .project-swiper img {
   width: 100%;
-  height: 100%;
   object-fit: contain;
   object-position: center;
+}
+
+.project-card.company-project .project-media img {
+  max-height: 320px;
+}
+
+.project-swiper img {
+  height: 100%;
 }
 
 .project-swiper {
@@ -677,7 +748,7 @@ h3 {
 }
 
 .project-swiper:hover {
-  border-color: rgba(37, 99, 235, 0.28);
+  border-color: rgba(var(--blue-rgb), 0.28);
 }
 
 .project-swiper-button {
@@ -906,7 +977,7 @@ h3 {
 
 .note-list {
   display: grid;
-  gap: 14px;
+  gap: 10px;
   padding-bottom: 80px;
 }
 
@@ -934,7 +1005,7 @@ h3 {
 }
 
 .note-item {
-  padding: 24px;
+  padding: 22px 24px;
 }
 
 .note-item-top {
@@ -942,13 +1013,37 @@ h3 {
   flex-wrap: wrap;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+}
+
+.note-item h2 {
+  margin-bottom: 8px;
+  font-size: 24px;
+}
+
+.note-title-link {
+  transition: color 180ms ease;
+}
+
+.note-item p {
+  margin-bottom: 0;
+  color: var(--slate);
+  display: -webkit-box;
+  font-size: 16px;
+  line-height: 1.55;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .note-item time {
   color: var(--blue-deep);
   font-size: 13px;
   font-weight: 650;
+}
+
+.note-title-link:hover {
+  color: var(--blue-deep);
 }
 
 .note-item-top a {
@@ -958,6 +1053,102 @@ h3 {
   color: var(--steel);
   font-size: 12px;
   font-weight: 650;
+}
+
+.note-hashtags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 14px;
+}
+
+.note-hashtags span {
+  padding: 4px 8px;
+  border: 1px solid rgba(var(--blue-rgb), 0.16);
+  border-radius: 6px;
+  background: var(--tag-blue-soft);
+  color: var(--tag-blue);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.note-article {
+  padding: 24px 0 96px;
+}
+
+.note-article-header {
+  max-width: 100%;
+}
+
+.note-article-header time {
+  color: var(--blue-deep);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.note-article-header h1 {
+  margin: 12px 0;
+  font-size: 30px;
+}
+
+.note-article-header p {
+  color: var(--steel);
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.note-content {
+  max-width: 780px;
+  padding-top: 28px;
+  color: var(--charcoal);
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.note-content > *:first-child {
+  margin-top: 0;
+}
+
+.note-content h2,
+.note-content h3 {
+  margin: 34px 0 12px;
+  color: var(--ink);
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.note-content p,
+.note-content ul,
+.note-content ol,
+.note-content pre {
+  margin: 0 0 18px;
+}
+
+.note-content a {
+  color: var(--blue-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.note-content code {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: var(--surface);
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.88em;
+}
+
+.note-content pre {
+  overflow-x: auto;
+  padding: 16px;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  background: var(--surface-soft);
+}
+
+.note-content pre code {
+  padding: 0;
+  background: transparent;
 }
 
 @keyframes bubble-pop {
@@ -1066,7 +1257,17 @@ h3 {
     padding: 22px 0;
   }
 
-  .project-media,
+  .project-media {
+    height: auto;
+    min-height: auto;
+    padding: 14px;
+  }
+
+  .project-card.company-project .project-media {
+    min-height: 220px;
+    padding: 20px;
+  }
+
   .project-swiper {
     height: auto;
     min-height: auto;

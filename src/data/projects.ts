@@ -158,7 +158,7 @@ export const projects: Project[] = [
     title: "力合量前台網頁開發",
     period: "2023/11-2023/12",
     type: "公司專案",
-    image: "/images/projects/powerax-quantum.png",
+    image: "https://www.powerax.com.tw/logo.svg",
     imageAlt: "Powerax Quantum Electronic Corporation logo",
     summary:
       "以 Nuxt 3 建置公司官網，負責響應式版面、多國語系、互動表單與後端 API 串接。",

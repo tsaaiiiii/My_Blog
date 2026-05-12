@@ -12,9 +12,14 @@ const slides =
   project.images ??
   (project.image ? [{ src: project.image, alt: project.imageAlt ?? project.title }] : []);
 const hasSwiper = Boolean(project.images && project.images.length > 1);
+const typeClass = {
+  "個人專案": "personal-project",
+  "公司專案": "company-project",
+  "協作專案": "collaboration-project",
+}[project.type];
 ---
 
-<article class={compact ? "project-card compact" : "project-card"}>
+<article class:list={["project-card", typeClass, { compact }]}>
   <div class={hasSwiper ? "project-swiper" : "project-media"} aria-label={`${project.title} images`}>
     <div class="project-swiper-track">
       {

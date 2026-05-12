@@ -1,0 +1,41 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { noteCategories } from "@/data/profile";
+import { withBase } from "@/utils/path";
+
+export async function getStaticPaths() {
+  const notes = (await getCollection("notes")).filter((note) => !note.data.draft);
+
+  return notes.map((note) => ({
+    params: {
+      category: note.data.category,
+      slug: note.id.split("/").pop()?.replace(/\.md$/, "") ?? note.id,
+    },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const category = noteCategories.find((item) => item.slug === note.data.category);
+const categoryPath = `/notes/${note.data.category}`;
+const { Content } = await render(note);
+---
+
+<BaseLayout title={`${note.data.title} | Windy Tsai`} description={note.data.description}>
+  <article class="note-article">
+    <a class="back-link" href={withBase(categoryPath)}>
+      回{category?.title ?? note.data.category}筆記
+    </a>
+    <header class="note-article-header">
+      <time datetime={note.data.date.toISOString()}>
+        {note.data.date.toLocaleDateString("zh-TW")}
+      </time>
+      <h1>{note.data.title}</h1>
+      {note.data.description && <p>{note.data.description}</p>}
+    </header>
+    <div class="note-content">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
