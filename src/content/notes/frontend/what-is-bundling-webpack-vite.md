@@ -64,7 +64,7 @@ SPA 興起、要打包 CSS、圖片，開發者希望直接 `import './style.css
 
 ### 2020：為提升速度跟效能
 
-**Vite**：用 native ESM + Rolldown（現在），改變 dev server 體驗
+**Vite**：用 native ESM 改變 dev server 體驗（底層打包器一路演進：esbuild + rollup → 2026 年改用 Rolldown）
 
 ## 那為何要打包？？
 
@@ -93,8 +93,7 @@ SPA 興起、要打包 CSS、圖片，開發者希望直接 `import './style.css
 > **Webpack 本體是用 JavaScript 寫的，跑在 Node.js 上**。
 > 本體只是個**打包器**，不負責編譯、不負責壓縮、不負責跑 dev server。它能變成「構建工具」是因為**透過 loader / plugin 把其他工具串起來**。
 
-> 一般來說，Webpack 會把多個 module 包進一個 bundle，把每個 module 轉成函式，並用自己的 runtime 管理載入與執行；最後通常會用 IIFE 包住整個 bundle，讓瀏覽器可以直接執行，同時避免污染全域作
-> 用域。
+> 一般來說，Webpack 會把多個 module 包進一個 bundle，把每個 module 轉成函式，並用自己的 runtime 管理載入與執行；最後通常會用 IIFE 包住整個 bundle，讓瀏覽器可以直接執行，同時避免污染全域作用域。
 
 來説説什麼是**構建工具**，他是一個完整的工具箱，也就是上述講到的那些壓縮、tree shaking… 都是一個個的工具，而 Webpack 的本體是打包器，意思就是原本也只是其中一種工具，叫做打包工具，最後才慢慢變成「構建工具」
 
