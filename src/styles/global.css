@@ -156,6 +156,10 @@ body.home-page main {
   color: var(--ink);
 }
 
+.site-nav a.active:hover {
+  color: #fff;
+}
+
 .home-layout {
   max-width: 1180px;
   margin: 0 auto;
