@@ -19,7 +19,8 @@ export async function getStaticPaths() {
 const { note } = Astro.props;
 const category = noteCategories.find((item) => item.slug === note.data.category);
 const categoryPath = `/notes/${note.data.category}`;
-const { Content } = await render(note);
+const { Content, headings } = await render(note);
+const tocHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
 ---
 
 <BaseLayout title={`${note.data.title} | Windy Tsai`} description={note.data.description}>
@@ -34,8 +35,24 @@ const { Content } = await render(note);
       <h1>{note.data.title}</h1>
       {note.data.description && <p>{note.data.description}</p>}
     </header>
-    <div class="note-content">
-      <Content />
+    <div class="note-article-grid">
+      <div class="note-content">
+        <Content />
+      </div>
+      {
+        tocHeadings.length > 0 && (
+          <aside class="note-toc" aria-label="文章目錄">
+            <p>文章目錄</p>
+            <nav>
+              {tocHeadings.map((heading) => (
+                <a class={`depth-${heading.depth}`} href={`#${heading.slug}`}>
+                  {heading.text}
+                </a>
+              ))}
+            </nav>
+          </aside>
+        )
+      }
     </div>
   </article>
 </BaseLayout>

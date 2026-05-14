@@ -1097,8 +1097,15 @@ h3 {
   line-height: 1.75;
 }
 
+.note-article-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 48px;
+  align-items: start;
+}
+
 .note-content {
-  max-width: 780px;
+  min-width: 0;
   padding-top: 28px;
   color: var(--charcoal);
   font-size: 16px;
@@ -1109,12 +1116,67 @@ h3 {
   margin-top: 0;
 }
 
-.note-content h2,
+.note-content h2 {
+  scroll-margin-top: 96px;
+  margin: 56px 0 18px;
+  padding-top: 32px;
+  border-top: 1px solid var(--hairline);
+  color: var(--ink);
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.note-content h2:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
 .note-content h3 {
+  scroll-margin-top: 96px;
   margin: 34px 0 12px;
   color: var(--ink);
   font-size: 20px;
   line-height: 1.25;
+}
+
+.note-toc {
+  position: sticky;
+  top: 88px;
+  max-height: calc(100vh - 112px);
+  overflow: auto;
+  padding-top: 32px;
+}
+
+.note-toc p {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.note-toc nav {
+  display: grid;
+  gap: 8px;
+  padding-left: 14px;
+  border-left: 1px solid var(--hairline);
+}
+
+.note-toc a {
+  color: var(--steel);
+  font-size: 13px;
+  line-height: 1.45;
+  text-decoration: none;
+}
+
+.note-toc a:hover {
+  color: var(--blue-deep);
+}
+
+.note-toc .depth-3 {
+  padding-left: 12px;
+  color: var(--muted);
+  font-size: 12px;
 }
 
 .note-content p,
@@ -1124,10 +1186,138 @@ h3 {
   margin: 0 0 18px;
 }
 
+.note-content ul,
+.note-content ol {
+  padding-left: 20px;
+}
+
+.note-content li {
+  padding-left: 0;
+  line-height: 1.75;
+}
+
+.note-content li + li {
+  margin-top: 4px;
+}
+
+.note-content table {
+  width: 100%;
+  margin: 0 0 18px;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.note-content th,
+.note-content td {
+  padding: 10px 12px;
+  border: 1px solid var(--hairline);
+  text-align: left;
+  vertical-align: top;
+}
+
+.note-content th {
+  background: var(--surface-soft);
+  color: var(--ink);
+  font-weight: 700;
+}
+
 .note-content a {
   color: var(--blue-deep);
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+.note-content blockquote {
+  margin: 0 0 18px;
+  padding: 14px 18px;
+  border-left: 4px solid var(--blue);
+  border-radius: 0 8px 8px 0;
+  background: var(--surface-soft);
+  color: var(--charcoal);
+}
+
+.note-content blockquote > *:last-child {
+  margin-bottom: 0;
+}
+
+.note-content aside {
+  margin: 24px 0;
+  padding: 18px 20px 18px 52px;
+  position: relative;
+  border: 1px solid rgba(var(--blue-rgb), 0.18);
+  border-radius: 8px;
+  background: rgba(var(--blue-rgb), 0.06);
+  color: var(--charcoal);
+}
+
+.note-content aside::before {
+  content: "!";
+  position: absolute;
+  top: calc(18px + 0.25em);
+  left: 20px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.note-content aside > *:first-child {
+  margin-top: 0;
+}
+
+.note-content aside > *:last-child {
+  margin-bottom: 0;
+}
+
+.note-content aside ul,
+.note-content aside ol {
+  margin: 10px 0 16px;
+  padding-left: 22px;
+}
+
+.note-content aside li + li {
+  margin-top: 6px;
+}
+
+.note-content aside pre {
+  margin-top: 14px;
+  background: var(--canvas);
+}
+
+.note-content aside table {
+  margin-top: 14px;
+  margin-bottom: 0;
+  background: var(--canvas);
+}
+
+.note-references {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--hairline);
+}
+
+.note-content .note-references h2 {
+  margin: 0 0 16px;
+  padding-top: 0;
+  border-top: 0;
+  font-size: 20px;
+}
+
+.note-references ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.note-references li {
+  color: var(--steel);
 }
 
 .note-content code {
@@ -1204,8 +1394,13 @@ h3 {
   .home-layout,
   .comic-home,
   .section-grid,
+  .note-article-grid,
   .project-card {
     grid-template-columns: 1fr;
+  }
+
+  .note-toc {
+    display: none;
   }
 
   .home-layout {
