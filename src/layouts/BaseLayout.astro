@@ -19,7 +19,17 @@ const navItems = [
   { href: "/projects", label: "專案" },
 ];
 
-const currentPath = withoutBase(Astro.url.pathname);
+const normalizePath = (path: string) => (path === "/" ? path : path.replace(/\/$/, ""));
+const currentPath = normalizePath(withoutBase(Astro.url.pathname));
+const isActivePath = (href: string) => {
+  const normalizedHref = normalizePath(href);
+
+  if (normalizedHref === "/") {
+    return currentPath === "/";
+  }
+
+  return currentPath === normalizedHref || currentPath.startsWith(`${normalizedHref}/`);
+};
 ---
 
 <!doctype html>
@@ -40,7 +50,7 @@ const currentPath = withoutBase(Astro.url.pathname);
       <nav class="site-nav" aria-label="Primary navigation">
         {
           navItems.map((item) => (
-            <a href={withBase(item.href)} class={currentPath === item.href ? "active" : ""}>
+            <a href={withBase(item.href)} class={isActivePath(item.href) ? "active" : ""}>
               {item.label}
             </a>
           ))
