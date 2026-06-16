@@ -70,6 +70,7 @@ main {
 }
 
 body.home-page main {
+  width: 100%;
   margin-bottom: 0;
 }
 
@@ -161,18 +162,26 @@ body.home-page main {
 }
 
 .home-layout {
-  max-width: 1180px;
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 156px);
+  max-width: none;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(280px, 420px);
+  justify-content: start;
   gap: 24px;
-  padding: 22px 0;
-  align-items: start;
+  padding: 36px max(24px, calc((100vw - var(--max)) / 2)) 64px;
+  align-items: center;
+  overflow: hidden;
 }
 
 .profile-stack {
+  position: relative;
+  z-index: 2;
   display: grid;
   gap: 12px;
+  max-width: 380px;
 }
 
 .profile-card {
@@ -185,16 +194,16 @@ body.home-page main {
 .primary-card {
   position: relative;
   display: grid;
-  gap: 14px;
-  padding: 24px;
+  gap: 12px;
+  padding: 20px;
   overflow: hidden;
   background:
     linear-gradient(
       135deg,
       rgba(var(--blue-rgb), 0.08),
-      rgba(248, 250, 252, 0.94)
+      rgba(248, 250, 252, 0.84)
     ),
-    var(--surface);
+    rgba(255, 255, 255, 0.72);
   background-image:
     linear-gradient(
       135deg,
@@ -211,11 +220,12 @@ body.home-page main {
     0 0,
     0 0,
     0 0;
+  backdrop-filter: blur(18px);
 }
 
 .primary-card h1 {
   margin-bottom: 0;
-  font-size: clamp(28px, 3vw, 40px);
+  font-size: clamp(30px, 2.5vw, 36px);
   font-family:
     "Bricolage Grotesque", "IBM Plex Sans TC", ui-sans-serif, system-ui,
     sans-serif;
@@ -229,7 +239,7 @@ body.home-page main {
 .profile-statement {
   color: var(--charcoal);
   max-width: 34rem;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.7;
 }
 
@@ -249,9 +259,9 @@ body.home-page main {
 
 .skill-group {
   display: grid;
-  grid-template-columns: 82px minmax(0, 1fr);
-  gap: 12px;
-  padding: 12px 14px;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: 10px;
+  padding: 10px 12px;
   border-bottom: 1px solid rgba(10, 10, 10, 0.08);
 }
 
@@ -274,7 +284,7 @@ body.home-page main {
 }
 
 .skill-group-items span {
-  padding: 3px 7px;
+  padding: 2px 7px;
   border-radius: 999px;
   background: rgba(var(--blue-rgb), 0.08);
   color: var(--blue-deep);
@@ -282,37 +292,6 @@ body.home-page main {
     "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
   font-size: 12px;
   font-weight: 650;
-}
-
-.comic-home {
-  min-height: auto;
-  width: min(100%, 580px);
-  margin-left: auto;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  padding: 0;
-}
-
-.comic-credit {
-  grid-column: 1 / -1;
-  justify-self: end;
-  margin: -2px 2px 0 0;
-  color: var(--muted);
-  font-family:
-    "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
-  font-size: 10px;
-  line-height: 1;
-}
-
-.comic-panel {
-  position: relative;
-  overflow: hidden;
-  border: 2px solid var(--ink);
-  border-radius: 12px;
-  background: var(--canvas);
-  box-shadow: 5px 5px 0 rgba(var(--blue-rgb), 0.12);
-  aspect-ratio: 1 / 1;
 }
 
 .intro-panel {
@@ -341,13 +320,6 @@ body.home-page main {
   height: 100%;
   object-fit: cover;
   object-position: left center;
-}
-
-.comic-image-panel img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: #fff;
 }
 
 .quote-panel {
@@ -386,10 +358,10 @@ body.home-page main {
 .contact-item {
   position: relative;
   display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
-  gap: 12px;
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 10px;
   align-items: center;
-  padding: 11px 14px 11px 18px;
+  padding: 10px 12px 10px 18px;
   color: var(--slate);
   text-decoration: none;
   border-bottom: 1px solid rgba(10, 10, 10, 0.08);
@@ -429,7 +401,7 @@ a.contact-item:hover .contact-value {
   color: var(--charcoal);
   font-family:
     "Space Grotesk", "IBM Plex Sans TC", ui-sans-serif, system-ui, sans-serif;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 650;
   overflow-wrap: anywhere;
 }
@@ -530,8 +502,8 @@ h3 {
 .link-row a {
   display: inline-flex;
   align-items: center;
-  min-height: 40px;
-  padding: 10px 18px;
+  min-height: 38px;
+  padding: 9px 16px;
   border: 1px solid var(--hairline);
   border-radius: var(--radius-control);
   background: transparent;
@@ -1396,7 +1368,6 @@ h3 {
   }
 
   .home-layout,
-  .comic-home,
   .section-grid,
   .note-article-grid,
   .project-card {
@@ -1408,13 +1379,13 @@ h3 {
   }
 
   .home-layout {
-    padding-top: 16px;
+    min-height: calc(100vh - 136px);
+    padding: 24px 16px 56px;
+    align-items: center;
   }
 
-  .comic-home {
-    width: 100%;
-    min-height: auto;
-    padding-top: 32px;
+  .profile-stack {
+    max-width: 460px;
   }
 
   .category-grid.wide,
@@ -1465,6 +1436,11 @@ h3 {
   .project-card.company-project .project-media {
     min-height: 220px;
     padding: 20px;
+  }
+
+  .home-layout {
+    min-height: auto;
+    padding-bottom: 36px;
   }
 
   .project-swiper {

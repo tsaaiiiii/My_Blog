@@ -16,12 +16,13 @@ draft: false
 所以在 CI 時就會需要執行 npm install，才可以拿到第三方套件的模塊
 
 ```markdown
-source code (src/)
-↓ ci/本地開發: node_modules/ （install 來的第三方）
+輸入：
+- source code（src/）
+- 第三方套件（node_modules/，透過 npm install 取得）
 ↓
 build 工具跑一輪（編譯 + 打包 + 壓縮）
 ↓
-dist/ ← 最終產物，直接部署
+輸出：dist/（最終產物，可直接部署）
 ```
 
 ## 歷史演進
