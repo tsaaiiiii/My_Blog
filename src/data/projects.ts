@@ -68,41 +68,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    title: "FieldToTable｜菜單管理平台",
-    period: "2026/2-仍在進行",
-    type: "協作專案",
-    images: [
-      { src: "/images/projects/field-to-table/1.webp", alt: "FieldToTable menu management overview" },
-      { src: "/images/projects/field-to-table/2.webp", alt: "FieldToTable menu item editing interface" },
-      { src: "/images/projects/field-to-table/3.webp", alt: "FieldToTable category management interface" },
-      { src: "/images/projects/field-to-table/5.webp", alt: "FieldToTable ordering preview interface" },
-      { src: "/images/projects/field-to-table/4.webp", alt: "FieldToTable restaurant settings interface" },
-    ],
-    summary:
-      "以菜單管理為核心的 monorepo 專案，負責前端資料流、路由、API 協作與型別驗證。",
-    highlights: [
-      "使用 React.js 實作前端功能，負責畫面與互動邏輯設計。",
-      "與後端協作串接 API，完成基本資料流程。",
-      "了解 monorepo 架構與 shared package 的應用方式，透過 Turborepo 管理專案結構。",
-      "參與 API 規格討論並負責前端資料流設計，整合 TanStack Router 與 TanStack Query。",
-    ],
-    story: {
-      goal: "練習 React 生態、TanStack Router / Query、shared package 與 monorepo 協作方式。",
-      design:
-        "前端使用 React + Vite + TypeScript，搭配 TanStack Router、TanStack Query、Zustand 與 Zod；後端使用 Hono、Drizzle ORM 與 PostgreSQL。",
-      challenge:
-        "前後端 API 規格需要持續對齊，且 monorepo 中共用型別與 package 邊界要避免混亂。",
-      learned:
-        "理解資料請求快取、file-based routing、shared package 與 team skills 管理如何改善協作效率。",
-    },
-    areas: ["產品實作", "協作與工程流程"],
-    tags: ["React", "TypeScript", "TanStack Router", "TanStack Query", "Zod", "Turborepo", "Hono", "Drizzle"],
-    links: [
-      { label: "Live Demo", href: "https://field-to-table.pages.dev" },
-      { label: "Repository", href: "https://github.com/EeveeBag/Field-To-Table" },
-    ],
-  },
-  {
     title: "AI Agent 產品｜WebChat 與後台功能",
     period: "2025/3-2025/8",
     type: "公司專案",
